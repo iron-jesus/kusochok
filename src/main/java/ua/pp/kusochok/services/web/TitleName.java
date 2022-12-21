@@ -2,7 +2,8 @@ package ua.pp.kusochok.services.web;
 
 public enum TitleName {
     ONE_PIECE("One Piece"),
-    CHAINSAW_MAN("Chainsaw Man");
+    CHAINSAW_MAN("Chainsaw Man"),
+    VINLAND_SAGA("Vinland Saga");
 
     private final String name;
 

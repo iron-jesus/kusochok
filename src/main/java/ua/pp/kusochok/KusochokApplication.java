@@ -4,6 +4,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import ua.pp.kusochok.models.Title;
 import ua.pp.kusochok.models.enums.TitleStatus;
 import ua.pp.kusochok.rest.dto.SignUpRequestDto;
 import ua.pp.kusochok.rest.dto.TitleAddDto;
@@ -32,7 +33,7 @@ public class KusochokApplication {
                     "jajebav", "asdads", "asdasd", "asdasd"
             ));
 
-            titleService.addTitle(
+            Title onePiece = titleService.addTitle(
                     new TitleAddDto(
                             "One Piece",
                             "Eiichiro Oda",
@@ -41,6 +42,20 @@ public class KusochokApplication {
                             ""
                     )
             );
+
+//            titleService.sceduleUpdate(onePiece);
+
+            Title vinlandSaga = titleService.addTitle(
+                    new TitleAddDto(
+                            "Vinland Saga",
+                            "Makoto Yukimura",
+                            2005,
+                            TitleStatus.ONGOING,
+                            ""
+                    )
+            );
+
+//            titleService.sceduleUpdate(vinlandSaga);
         };
     }
 }

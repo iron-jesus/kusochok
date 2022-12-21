@@ -26,15 +26,15 @@ public class TaskScheduler {
             @Override
             public void run() {
                 try {
-                    System.out.println("UPDATE STARTED " + LocalDateTime.now());
+                    System.out.println("UPDATE STARTED FOR TITLE " + title.getName() + " " + LocalDateTime.now());
                     chapterService.reGetChaptersByTitleNameAndQualifyIfChapterExists(title.getName());
-                    System.out.println("UPDATE FINISHED" + LocalDateTime.now());
+                    System.out.println("UPDATE FINISHED FOR TITLE " + title.getName() + " " + LocalDateTime.now());
                 } catch (LinkAccessException | EntityNotFoundException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println("ERROR FOR TITLE " + title.getName() + " " + e.getMessage());
                     e.printStackTrace();
                     this.cancel();
                 }
             }
-        }, 10*sec, 20*min);
+        }, 10*sec, 2*min);
     }
 }

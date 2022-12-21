@@ -64,6 +64,7 @@ public class ChapterService {
         );
     }
 
+    // TODO split
     @Transactional
     public List<Chapter> reGetChaptersByTitleAndQualifyIfChapterExists(Title title, Double chapterNum) throws LinkAccessException, EntityNotFoundException {
         List<ScrapChapterLink> scrapChapters = services.getService(title.getName()).scrapChapterLinks();
@@ -89,7 +90,9 @@ public class ChapterService {
         }
 
         chapterRepository.deleteByTitleId(title.getId());
-        Chapter.setLastId(chapters.stream().min(Comparator.comparing(Chapter::getId)).get().getId());
+        if (prevChaptersCount != 0) {
+            Chapter.setLastId(chapters.stream().min(Comparator.comparing(Chapter::getId)).get().getId());
+        }
 
         if (chapters.size() > prevChaptersCount) {
             title.setLastChapter(

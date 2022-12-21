@@ -60,8 +60,12 @@ public class TitleService {
                 titleAddDto.photoUrl
         ));
 
-        taskScheduler.scheduleUpdate(title);
+        sceduleUpdate(title);
 
         return title;
+    }
+
+    public void sceduleUpdate(Title title) {
+        taskScheduler.scheduleUpdate(title);
     }
 }
