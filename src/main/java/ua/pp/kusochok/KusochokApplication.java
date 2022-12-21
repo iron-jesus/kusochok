@@ -39,7 +39,7 @@ public class KusochokApplication {
                             "Eiichiro Oda",
                             1997,
                             TitleStatus.ONGOING,
-                            ""
+                            "https://m.media-amazon.com/images/M/MV5BODcwNWE3OTMtMDc3MS00NDFjLWE1OTAtNDU3NjgxODMxY2UyXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg"
                     )
             );
 
@@ -49,7 +49,7 @@ public class KusochokApplication {
                             "Makoto Yukimura",
                             2005,
                             TitleStatus.ONGOING,
-                            ""
+                            "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974709939/chainsaw-man-vol-1-9781974709939_hr.jpg"
                     )
             );
 
@@ -59,7 +59,29 @@ public class KusochokApplication {
                             "Tatsuki Fujimoto",
                             2018,
                             TitleStatus.ONGOING,
-                            ""
+                            "https://uageek.space/wp-content/uploads/2021/02/Vinland-Saga-.jpg"
+                    )
+            );
+
+            // TODO: add services
+
+            titleService.addTitle(
+                    new TitleAddDto(
+                            "Dr. Stone",
+                            "Tatsuki Fujimoto",
+                            2018,
+                            TitleStatus.PAUSED,
+                            "https://c4.wallpaperflare.com/wallpaper/449/510/491/anime-boys-anime-dr-stone-hd-wallpaper-preview.jpg"
+                    )
+            );
+
+            titleService.addTitle(
+                    new TitleAddDto(
+                            "Tokyo Revengers",
+                            "Tatsuki Fujimoto",
+                            2018,
+                            TitleStatus.CLOSED,
+                            "https://kbimages1-a.akamaihd.net/51d5c16d-ec51-46c5-ad4d-2ccec0fc1247/1200/1200/False/tokyo-revengers-17.jpg"
                     )
             );
         };
