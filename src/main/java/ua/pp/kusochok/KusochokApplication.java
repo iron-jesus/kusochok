@@ -33,7 +33,7 @@ public class KusochokApplication {
                     "jajebav", "asdads", "asdasd", "asdasd"
             ));
 
-            Title onePiece = titleService.addTitle(
+            titleService.addTitle(
                     new TitleAddDto(
                             "One Piece",
                             "Eiichiro Oda",
@@ -43,9 +43,7 @@ public class KusochokApplication {
                     )
             );
 
-//            titleService.sceduleUpdate(onePiece);
-
-            Title vinlandSaga = titleService.addTitle(
+            titleService.addTitle(
                     new TitleAddDto(
                             "Vinland Saga",
                             "Makoto Yukimura",
@@ -55,7 +53,15 @@ public class KusochokApplication {
                     )
             );
 
-//            titleService.sceduleUpdate(vinlandSaga);
+            titleService.addTitle(
+                    new TitleAddDto(
+                            "Chainsaw Man",
+                            "Tatsuki Fujimoto",
+                            2018,
+                            TitleStatus.ONGOING,
+                            ""
+                    )
+            );
         };
     }
 }
