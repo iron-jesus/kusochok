@@ -35,6 +35,6 @@ public class TaskScheduler {
                     this.cancel();
                 }
             }
-        }, 10*sec, 2*min);
+        }, 5*sec, 30*sec);
     }
 }

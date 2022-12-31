@@ -3,6 +3,7 @@ package ua.pp.kusochok.rest.dto;
 import ua.pp.kusochok.models.Chapter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChapterLinkReadDto {
@@ -24,7 +25,7 @@ public class ChapterLinkReadDto {
     public static List<ChapterLinkReadDto> fromChapterList(List<Chapter> chapters) {
         List<ChapterLinkReadDto> chapterLinkReadDtos = new ArrayList<>();
 
-        chapters.forEach(chapter -> {
+        chapters.stream().sorted(Comparator.comparing(Chapter::getNumber)).toList().forEach(chapter -> {
             chapterLinkReadDtos.add(new ChapterLinkReadDto(chapter.getNumber(), "x"));
         });
 

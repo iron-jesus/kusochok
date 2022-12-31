@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import ua.pp.kusochok.errors.InvalidInput;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,8 +12,8 @@ import java.util.regex.Pattern;
 @Table(name = "chapters")
 public class Chapter {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
 
     @Column
@@ -24,15 +25,15 @@ public class Chapter {
     @Column
     private String parseUrl;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne()
     @JoinColumn(name = "title_id")
     private Title title;
 
-    private static Long lastId = 0L;
+    @OneToMany(mappedBy = "chapter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UserChapter> userChapters;
+
 
     public Chapter(Double number, Integer volume, String parseUrl, Title title) {
-        this.id = lastId;
-        lastId += 1;
         this.number = number;
         this.volume = volume;
         this.parseUrl = parseUrl;
@@ -79,6 +80,10 @@ public class Chapter {
         return title;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setTitle(Title title) {
         this.title = title;
     }
@@ -102,9 +107,5 @@ public class Chapter {
         }
 
         return Double.parseDouble(finalNum);
-    }
-
-    public static void setLastId(Long lastId) {
-        Chapter.lastId = lastId;
     }
 }

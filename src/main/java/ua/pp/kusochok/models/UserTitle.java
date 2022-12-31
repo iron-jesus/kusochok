@@ -30,7 +30,7 @@ public class UserTitle {
     @JoinColumn(name = "title_id")
     private Title title;
 
-    @OneToMany(mappedBy = "userTitle", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userTitle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserChapter> userChapters;
 
     public UserTitle(Boolean isLoved, Boolean isDescendingSorting, ReadStatus readStatus, User user, Title title) {

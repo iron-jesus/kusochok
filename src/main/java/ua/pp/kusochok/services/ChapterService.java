@@ -15,10 +15,7 @@ import ua.pp.kusochok.rest.dto.ChapterReadDto;
 import ua.pp.kusochok.services.web.ScrapperServices;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -48,6 +45,7 @@ public class ChapterService {
             }
         }
 
+//        return ChapterLinkReadDto.fromChapterList(title.getChapters().stream().sorted(Comparator.comparing(Chapter::getNumber)).toList());
         return ChapterLinkReadDto.fromChapterList(title.getChapters());
     }
 
@@ -69,12 +67,13 @@ public class ChapterService {
     public List<Chapter> reGetChaptersByTitleAndQualifyIfChapterExists(Title title, Double chapterNum) throws LinkAccessException, EntityNotFoundException {
         List<ScrapChapterLink> scrapChapters = services.getService(title.getName()).scrapChapterLinks();
 
-        int prevChaptersCount = Optional.ofNullable(title.getChapters()).orElse(new ArrayList<>()).size();
+        List<Chapter> prevChapters = Optional.ofNullable(title.getChapters()).orElse(new ArrayList<>());
         List<Chapter> chapters = new ArrayList<>();
 
+        List<Chapter> lambdaChapters = chapters;
         scrapChapters.forEach(scrapChapterLink -> {
             try {
-                chapters.add(new Chapter(
+                lambdaChapters.add(new Chapter(
                         scrapChapterLink.getNumber(),
                         0,
                         scrapChapterLink.getLink(),
@@ -84,17 +83,24 @@ public class ChapterService {
                 throw new RuntimeException(e);
             }
         });
+        chapters = lambdaChapters;
 
         if (chapters.stream().noneMatch(chapter -> chapter.getNumber().equals(chapterNum))) {
             throw new EntityNotFoundException("chapter", "number", chapterNum.toString());
         }
 
-        chapterRepository.deleteByTitleId(title.getId());
-        if (prevChaptersCount != 0) {
-            Chapter.setLastId(chapters.stream().min(Comparator.comparing(Chapter::getId)).get().getId());
-        }
+//        if (prevChaptersCount != 0) {
+//            Chapter.setLastId(chapters.stream().min(Comparator.comparing(Chapter::getId)).get().getId());
+//        }
 
-        if (chapters.size() > prevChaptersCount) {
+        if (chapters.size() > prevChapters.size()) {
+            chapters = chapters.stream().peek(chapter -> {
+                Optional<Chapter> sic = prevChapters.stream()
+                        .filter(chapter1 -> chapter1.getNumber().equals(chapter.getNumber()))
+                        .findFirst();
+                sic.ifPresent(value -> chapter.setId(value.getId()));
+            }).toList();
+
             title.setLastChapter(
                     Integer.toString(
                             chapters.stream()
@@ -104,13 +110,19 @@ public class ChapterService {
                                     .intValue()
                     )
             );
-            if (prevChaptersCount != 0) {
+
+            if (prevChapters.size() != 0) {
                 title.setLastChapterUpdated(LocalDate.now());
             }
+
             titleRepository.save(title);
+
+            return StreamSupport.stream(chapterRepository.saveAll(chapters).spliterator(), false)
+//                    .sorted(Comparator.comparing(Chapter::getNumber))
+                    .toList();
         }
 
-        return StreamSupport.stream(chapterRepository.saveAll(chapters).spliterator(), false).collect(Collectors.toList());
+        return prevChapters;
     }
 
     @javax.transaction.Transactional
@@ -118,7 +130,7 @@ public class ChapterService {
         Title title = titleRepository.findByName(titleName).orElseThrow(() -> new EntityNotFoundException("title", "name", titleName));
         Chapter chapter;
         Double chapNum = Double.parseDouble(number);
-        Optional<Chapter> repoData = chapterRepository.getChaptersByNumberAndTitleName(chapNum, titleName);
+        Optional<Chapter> repoData = chapterRepository.getChaptersByNumberAndTitleNameOrderByNumberDesc(chapNum, titleName);
 
         if (repoData.isEmpty()) {
 
@@ -142,5 +154,9 @@ public class ChapterService {
         );
 
         return chapterReadDto;
+    }
+
+    public void deleteById(Long id) {
+        chapterRepository.deleteById(id);
     }
 }

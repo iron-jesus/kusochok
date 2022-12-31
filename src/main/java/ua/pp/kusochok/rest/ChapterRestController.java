@@ -61,4 +61,10 @@ public class ChapterRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    @DeleteMapping("/byID/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id, @PathVariable String titleQualifier) {
+        chapterService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

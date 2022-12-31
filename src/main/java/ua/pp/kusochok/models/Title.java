@@ -38,10 +38,10 @@ public class Title {
     @Column
     private String photoUrl;
 
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserTitle> userTitles;
 
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Chapter> chapters;
 
     public Title(String name, String lastChapter, String author, Integer releaseYear, TitleStatus status, String photoUrl) {

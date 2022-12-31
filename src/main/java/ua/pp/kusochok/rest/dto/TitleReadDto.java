@@ -5,6 +5,7 @@ import ua.pp.kusochok.models.enums.TitleStatus;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TitleReadDto {
@@ -127,7 +128,11 @@ public class TitleReadDto {
     }
 
     public List<ChapterLinkReadDto> getChapters() {
-        return chapters;
+        return chapters.stream()
+                .sorted(
+                        Comparator.comparingDouble((ChapterLinkReadDto o) -> Double.parseDouble(o.number))
+                )
+                .toList();
     }
 
     public void setId(Long id) {

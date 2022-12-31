@@ -65,25 +65,25 @@ public class KusochokApplication {
 
             // TODO: add services
 
-            titleService.addTitle(
-                    new TitleAddDto(
-                            "Dr. Stone",
-                            "Tatsuki Fujimoto",
-                            2018,
-                            TitleStatus.PAUSED,
-                            "https://c4.wallpaperflare.com/wallpaper/449/510/491/anime-boys-anime-dr-stone-hd-wallpaper-preview.jpg"
-                    )
-            );
-
-            titleService.addTitle(
-                    new TitleAddDto(
-                            "Tokyo Revengers",
-                            "Tatsuki Fujimoto",
-                            2018,
-                            TitleStatus.CLOSED,
-                            "https://kbimages1-a.akamaihd.net/51d5c16d-ec51-46c5-ad4d-2ccec0fc1247/1200/1200/False/tokyo-revengers-17.jpg"
-                    )
-            );
+//            titleService.addTitle(
+//                    new TitleAddDto(
+//                            "Dr. Stone",
+//                            "Tatsuki Fujimoto",
+//                            2018,
+//                            TitleStatus.PAUSED,
+//                            "https://c4.wallpaperflare.com/wallpaper/449/510/491/anime-boys-anime-dr-stone-hd-wallpaper-preview.jpg"
+//                    )
+//            );
+//
+//            titleService.addTitle(
+//                    new TitleAddDto(
+//                            "Tokyo Revengers",
+//                            "Tatsuki Fujimoto",
+//                            2018,
+//                            TitleStatus.CLOSED,
+//                            "https://kbimages1-a.akamaihd.net/51d5c16d-ec51-46c5-ad4d-2ccec0fc1247/1200/1200/False/tokyo-revengers-17.jpg"
+//                    )
+//            );
         };
     }
 }
