@@ -26,8 +26,4 @@ public class Log {
 
     @Column
     private String message;
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    private User user;
 }

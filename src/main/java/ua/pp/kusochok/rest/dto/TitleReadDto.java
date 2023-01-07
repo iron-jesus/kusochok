@@ -85,7 +85,7 @@ public class TitleReadDto {
 
         if (title.getChapters() != null && !title.getChapters().isEmpty() && !excludeChapters) {
             titleReadDto.chapters = ChapterLinkReadDto.fromChapterList(title.getChapters());
-            titleReadDto.lastChapter = titleReadDto.chapters.get(0).number;
+            // titleReadDto.lastChapter = titleReadDto.chapters.get(0).number;
         }
 
         return titleReadDto;

@@ -30,7 +30,11 @@ public class TaskScheduler {
                     chapterService.reGetChaptersByTitleNameAndQualifyIfChapterExists(title.getName());
                     System.out.println("UPDATE FINISHED FOR TITLE " + title.getName() + " " + LocalDateTime.now());
                 } catch (LinkAccessException | EntityNotFoundException e) {
-                    System.out.println("ERROR FOR TITLE " + title.getName() + " " + e.getMessage());
+                    if (e instanceof LinkAccessException) {
+                        System.out.println("LINK ACCESS EXCEPTION LINK: " + ((LinkAccessException) e).getLink() + "\n" + "LINK ACCESS EXCEPTION CAUSE: " + ((LinkAccessException) e).getCause().getMessage());
+                    } else {
+                        System.out.println("ERROR FOR TITLE " + title.getName() + " " + e.getMessage());
+                    }
                     e.printStackTrace();
                     this.cancel();
                 }

@@ -64,6 +64,10 @@ public class VinlandSagaScrapperService implements IScrapper {
 
             List<Element> imgContainers = doc.getElementsByClass("separator").stream().toList();
 
+            if (imgContainers.size() == 0) {
+                imgContainers = doc.getElementsByClass("wp-block-image").stream().toList();
+            }
+
             for (Element imgContainer:
                     imgContainers) {
                 Element img = imgContainer.getElementsByTag("img").first();

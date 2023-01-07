@@ -132,7 +132,7 @@ public class ChapterService {
         Double chapNum = Double.parseDouble(number);
         Optional<Chapter> repoData = chapterRepository.getChaptersByNumberAndTitleNameOrderByNumberDesc(chapNum, titleName);
 
-        if (repoData.isEmpty()) {
+        if (repoData.isEmpty() && false) {
 
             List<Chapter> chapters = reGetChaptersByTitleAndQualifyIfChapterExists(title);
 
@@ -145,6 +145,7 @@ public class ChapterService {
         }
 
         ChapterReadDto chapterReadDto = new ChapterReadDto(chapter.getId(), chapter.getNumber(), chapter.getVolume().toString());
+
 
         chapterReadDto.imgLinks.addAll(
                 services

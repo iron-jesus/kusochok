@@ -10,6 +10,7 @@ import ua.pp.kusochok.models.User;
 import ua.pp.kusochok.models.enums.Role;
 import ua.pp.kusochok.repositories.UserRepository;
 import ua.pp.kusochok.rest.dto.SignInRequestDto;
+import ua.pp.kusochok.rest.dto.SignInResponseDto;
 import ua.pp.kusochok.rest.dto.SignUpRequestDto;
 import ua.pp.kusochok.security.JwtTokenProvider;
 
@@ -25,10 +26,14 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public String authenticate(SignInRequestDto requestDto) {
-        User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+    public SignInResponseDto authenticate(SignInRequestDto requestDto) {
+        User user = userRepository.findByUsername(requestDto.username).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
 
-        return jwtTokenProvider.createToken(requestDto.getUsername(), user.getRole().name());
+        return new SignInResponseDto(
+                user.getUsername(),
+                jwtTokenProvider.createToken(requestDto.username, user.getRole().name()),
+                user.getRole()
+        );
     }
 
     public User register(SignUpRequestDto requestDto) throws UsernameAlreadyExists {

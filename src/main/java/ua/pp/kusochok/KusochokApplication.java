@@ -49,7 +49,7 @@ public class KusochokApplication {
                             "Makoto Yukimura",
                             2005,
                             TitleStatus.ONGOING,
-                            "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974709939/chainsaw-man-vol-1-9781974709939_hr.jpg"
+                            "https://uageek.space/wp-content/uploads/2021/02/Vinland-Saga-.jpg"
                     )
             );
 
@@ -59,7 +59,7 @@ public class KusochokApplication {
                             "Tatsuki Fujimoto",
                             2018,
                             TitleStatus.ONGOING,
-                            "https://uageek.space/wp-content/uploads/2021/02/Vinland-Saga-.jpg"
+                            "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974709939/chainsaw-man-vol-1-9781974709939_hr.jpg"
                     )
             );
 
